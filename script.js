@@ -68,7 +68,7 @@ const gameLogic = (function () {
     }
 
     const scanDraw = (gameBoard) => {
-        gameBoard = gameBoard.flat(Infinity)
+        gameBoard = gameBoard.gameBoard.flat(Infinity)
         if (gameBoard.includes(null)) {
             return false
         }
@@ -153,7 +153,8 @@ const gameLogic = (function () {
     }
 
     return {
-        scanWinner: scanWinner
+        scanWinner: scanWinner,
+        scanDraw: scanDraw
     }
 })()
 
@@ -178,12 +179,22 @@ function createGame(mark1, mark2) {
                 gameover = true
                 break
             }
+            if (gameLogic.scanDraw(gameBoard)) {
+                console.log('Draw!')
+                gameover = true
+                break
+            }
 
             player2.draw(gameBoard, player1.getInput(gameBoard))
             gameBoard.printBoard()
             if (gameLogic.scanWinner(gameBoard)) {
                 player2Score++
                 console.log('Player 2 wins!')
+                gameover = true
+                break
+            }
+            if (gameLogic.scanDraw(gameBoard)) {
+                console.log('Draw!')
                 gameover = true
                 break
             }
