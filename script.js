@@ -32,8 +32,14 @@ function createPlayer(mark) {
         gameBoard.draw(mark, coord)
     }
 
+    function getInput() {
+        const coord = prompt("Enter coordinates").split('').map(Number)
+        takeTurn(gameBoard, coord)
+    }
+
     return {
-        takeTurn: takeTurn
+        takeTurn: takeTurn,
+        getInput: getInput
     }
 }
 
@@ -49,6 +55,11 @@ const gameLogic = (function () {
 
 gameBoard = createGameBoard()
 player1 = createPlayer("X")
-player1.takeTurn(gameBoard, [1, 1])
 gameBoard.printBoard()
-gameLogic.scanWinner(gameBoard)
+
+while (true) {
+    player1.getInput()
+    gameBoard.printBoard()
+    gameLogic.scanWinner(gameBoard)
+
+}
