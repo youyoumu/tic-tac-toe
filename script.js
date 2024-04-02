@@ -161,6 +161,8 @@ function createGame(mark1, mark2) {
     const gameBoard = createGameBoard()
     const player1 = createPlayer(mark1)
     const player2 = createPlayer(mark2)
+    let player1Score = 0
+    let player2Score = 0
 
     function start() {
         gameBoard.printBoard()
@@ -171,6 +173,7 @@ function createGame(mark1, mark2) {
             player1.draw(gameBoard, player1.getInput(gameBoard))
             gameBoard.printBoard()
             if (gameLogic.scanWinner(gameBoard)) {
+                player1Score++
                 console.log('Player 1 wins!')
                 gameover = true
                 break
@@ -179,11 +182,14 @@ function createGame(mark1, mark2) {
             player2.draw(gameBoard, player1.getInput(gameBoard))
             gameBoard.printBoard()
             if (gameLogic.scanWinner(gameBoard)) {
+                player2Score++
                 console.log('Player 2 wins!')
                 gameover = true
                 break
             }
         }
+
+        console.log(`Score: ${player1Score} - ${player2Score}`)
     }
 
     return {
