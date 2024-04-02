@@ -1,7 +1,11 @@
+body {
+    height: 80vh;
+}
+
 #container {
     background-color: bisque;
     display: grid;
-    height: 100vh;
+    height: 100%;
 }
 
 .grid {
