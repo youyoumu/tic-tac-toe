@@ -28,17 +28,28 @@ function createGameBoard(size = 3, mark1 = "X", mark2 = "O") {
 }
 
 function createPlayer(mark) {
-    function takeTurn(gameBoard, coord) {
+
+    function draw(coord) {
         gameBoard.draw(mark, coord)
     }
 
     function getInput() {
         const coord = prompt("Enter coordinates").split('').map(Number)
-        takeTurn(gameBoard, coord)
+        if (coordIsValid(coord)) {
+            return coord
+        }
+        return getInput()
+    }
+
+    function coordIsValid(coord) {
+        if (gameBoard.gameBoard[coord[0]][coord[1]] === null) {
+            return coord
+        }
+        return false
     }
 
     return {
-        takeTurn: takeTurn,
+        draw: draw,
         getInput: getInput
     }
 }
@@ -58,8 +69,7 @@ player1 = createPlayer("X")
 gameBoard.printBoard()
 
 while (true) {
-    player1.getInput()
+    player1.draw(player1.getInput())
     gameBoard.printBoard()
     gameLogic.scanWinner(gameBoard)
-
 }
