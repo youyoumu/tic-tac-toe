@@ -56,11 +56,15 @@ function createPlayer(mark) {
 
 const gameLogic = (function () {
     const scanWinner = () => {
-        console.log(scanHorizontal(gameBoard.gameBoard))
-        console.log(scanVertical(gameBoard.gameBoard))
-        console.log(scanDiagonal1(gameBoard.gameBoard))
-        console.log(scanDiagonal2(gameBoard.gameBoard))
-        console.log(scanDraw(gameBoard.gameBoard))
+        if (mark =
+            scanHorizontal(gameBoard.gameBoard) ||
+            scanVertical(gameBoard.gameBoard) ||
+            scanDiagonal1(gameBoard.gameBoard) ||
+            scanDiagonal2(gameBoard.gameBoard)
+        ) {
+            return mark
+        }
+        return false
     }
 
     const scanDraw = (gameBoard) => {
@@ -158,12 +162,21 @@ player1 = createPlayer("X")
 player2 = createPlayer("O")
 gameBoard.printBoard()
 
-while (true) {
+let gameover = false
+while (!gameover) {
     player1.draw(player1.getInput())
     gameBoard.printBoard()
-    gameLogic.scanWinner(gameBoard)
+    if (gameLogic.scanWinner(gameBoard)) {
+        console.log('Player 1 wins!')
+        gameover = true
+        break
+    }
 
     player2.draw(player1.getInput())
     gameBoard.printBoard()
-    gameLogic.scanWinner(gameBoard)
+    if (gameLogic.scanWinner(gameBoard)) {
+        console.log('Player 2 wins!')
+        gameover = true
+        break
+    }
 }
