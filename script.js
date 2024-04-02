@@ -200,10 +200,26 @@ function createGame(size, mark1, mark2) {
     }
 
     return {
-        start: start
+        start: start,
+        gameBoard: gameBoard
     }
 }
 
 const size = Number(prompt("Enter board size"))
 const game = createGame(size, "X", "O")
+
+const container = document.getElementById('container')
+container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
+
+console.log(game.gameBoard.gameBoard)
+game.gameBoard.gameBoard.forEach(row => {
+    row.forEach((mark) => {
+        const grid = document.createElement('div')
+        grid.classList.add('grid')
+        grid.textContent = mark
+        container.appendChild(grid)
+    })
+})
+
+
 game.start()
