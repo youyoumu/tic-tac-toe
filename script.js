@@ -29,19 +29,19 @@ function createGameBoard(size = 3, mark1 = "X", mark2 = "O") {
 
 function createPlayer(mark) {
 
-    function draw(coord) {
+    function draw(gameBoard, coord) {
         gameBoard.draw(mark, coord)
     }
 
-    function getInput() {
+    function getInput(gameBoard) {
         const coord = prompt("Enter coordinates").split('').map(Number)
-        if (coordIsValid(coord)) {
+        if (coordIsValid(gameBoard, coord)) {
             return coord
         }
         return getInput()
     }
 
-    function coordIsValid(coord) {
+    function coordIsValid(gameBoard, coord) {
         if (gameBoard.gameBoard[coord[0]][coord[1]] === null) {
             return coord
         }
@@ -55,7 +55,7 @@ function createPlayer(mark) {
 }
 
 const gameLogic = (function () {
-    const scanWinner = () => {
+    const scanWinner = (gameBoard) => {
         if (mark =
             scanHorizontal(gameBoard.gameBoard) ||
             scanVertical(gameBoard.gameBoard) ||
@@ -157,26 +157,39 @@ const gameLogic = (function () {
     }
 })()
 
-gameBoard = createGameBoard()
-player1 = createPlayer("X")
-player2 = createPlayer("O")
-gameBoard.printBoard()
+function createGame(mark1, mark2) {
+    const gameBoard = createGameBoard()
+    const player1 = createPlayer(mark1)
+    const player2 = createPlayer(mark2)
 
-let gameover = false
-while (!gameover) {
-    player1.draw(player1.getInput())
-    gameBoard.printBoard()
-    if (gameLogic.scanWinner(gameBoard)) {
-        console.log('Player 1 wins!')
-        gameover = true
-        break
+    function start() {
+        gameBoard.printBoard()
+        console.log('Player 1 goes first')
+
+        let gameover = false
+        while (!gameover) {
+            player1.draw(gameBoard, player1.getInput(gameBoard))
+            gameBoard.printBoard()
+            if (gameLogic.scanWinner(gameBoard)) {
+                console.log('Player 1 wins!')
+                gameover = true
+                break
+            }
+
+            player2.draw(gameBoard, player1.getInput(gameBoard))
+            gameBoard.printBoard()
+            if (gameLogic.scanWinner(gameBoard)) {
+                console.log('Player 2 wins!')
+                gameover = true
+                break
+            }
+        }
     }
 
-    player2.draw(player1.getInput())
-    gameBoard.printBoard()
-    if (gameLogic.scanWinner(gameBoard)) {
-        console.log('Player 2 wins!')
-        gameover = true
-        break
+    return {
+        start: start
     }
 }
+
+const game = createGame("X", "O")
+game.start()
