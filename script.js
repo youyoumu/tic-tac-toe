@@ -8,11 +8,7 @@ function createGameBoard(size = 3, mark1 = "X", mark2 = "O") {
 
     function printBoard() {
         for (let i = 0; i < size; i++) {
-            console.log(
-                `${gameBoard[i][0] === null ? ' ' : gameBoard[i][0]} | ` +
-                `${gameBoard[i][1] === null ? ' ' : gameBoard[i][1]} | ` +
-                `${gameBoard[i][2] === null ? ' ' : gameBoard[i][2]}`
-            )
+            console.log(gameBoard[i].join(' | '))
         }
     }
 
@@ -158,8 +154,8 @@ const gameLogic = (function () {
     }
 })()
 
-function createGame(mark1, mark2) {
-    const gameBoard = createGameBoard()
+function createGame(size, mark1, mark2) {
+    const gameBoard = createGameBoard(size, mark1, mark2)
     const player1 = createPlayer(mark1)
     const player2 = createPlayer(mark2)
     let player1Score = 0
@@ -208,5 +204,6 @@ function createGame(mark1, mark2) {
     }
 }
 
-const game = createGame("X", "O")
+const size = Number(prompt("Enter board size"))
+const game = createGame(size, "X", "O")
 game.start()
