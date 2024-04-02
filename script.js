@@ -60,6 +60,15 @@ const gameLogic = (function () {
         console.log(scanVertical(gameBoard.gameBoard))
         console.log(scanDiagonal1(gameBoard.gameBoard))
         console.log(scanDiagonal2(gameBoard.gameBoard))
+        console.log(scanDraw(gameBoard.gameBoard))
+    }
+
+    const scanDraw = (gameBoard) => {
+        gameBoard = gameBoard.flat(Infinity)
+        if (gameBoard.includes(null)) {
+            return false
+        }
+        return true
     }
 
     const scanHorizontal = (gameBoard) => {
