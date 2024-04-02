@@ -58,6 +58,8 @@ const gameLogic = (function () {
     const scanWinner = () => {
         console.log(scanHorizontal(gameBoard.gameBoard))
         console.log(scanVertical(gameBoard.gameBoard))
+        console.log(scanDiagonal1(gameBoard.gameBoard))
+        console.log(scanDiagonal2(gameBoard.gameBoard))
     }
 
     const scanHorizontal = (gameBoard) => {
@@ -95,6 +97,44 @@ const gameLogic = (function () {
             if (gameover) {
                 return firstMark
             }
+        }
+        return false
+    }
+
+    const scanDiagonal1 = (gameBoard) => {
+        let diagonal = []
+        for (let i = 0; i < gameBoard.length; i++) {
+            diagonal.push(gameBoard[i][i])
+        }
+        const firstMark = diagonal[0];
+        let gameover = true
+        for (let i = 0; i < diagonal.length; i++) {
+            const mark = diagonal[i];
+            if (mark === null || mark !== firstMark) {
+                gameover = false
+            }
+        }
+        if (gameover) {
+            return firstMark
+        }
+        return false
+    }
+
+    const scanDiagonal2 = (gameBoard) => {
+        let diagonal = []
+        for (let i = 0; i < gameBoard.length; i++) {
+            diagonal.push(gameBoard[i][gameBoard.length - 1 - i])
+        }
+        const firstMark = diagonal[0];
+        let gameover = true
+        for (let i = 0; i < diagonal.length; i++) {
+            const mark = diagonal[i];
+            if (mark === null || mark !== firstMark) {
+                gameover = false
+            }
+        }
+        if (gameover) {
+            return firstMark
         }
         return false
     }
