@@ -242,6 +242,7 @@ function createGame(size, mark1, mark2) {
         }
 
         currentPlayer = (currentPlayer === player1) ? player2 : player1
+        gui.body.style.backgroundColor = (currentPlayer === player1) ? 'rgb(222, 240, 255)' : 'rgb(255, 222, 240)'
     }
 
     function removeEventListeners() {
@@ -253,6 +254,7 @@ function createGame(size, mark1, mark2) {
     function announceWinner(name) {
         console.log(`${name} wins!`)
         gui.notice.textContent = `${name} wins!`
+        gui.notice.style.visibility = 'visible'
         gui.score.textContent = `Score: ${player1Score} - ${player2Score}`
         removeEventListeners()
     }
@@ -277,6 +279,7 @@ function createGui() {
     const slider = document.getElementById('slider')
     const sliderLabel = document.getElementById('sliderLabel')
     const score = document.querySelector('.score')
+    const body = document.querySelector('body')
 
     sliderLabel.textContent = `Size: ${slider.value}`
     container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
@@ -313,6 +316,7 @@ function createGui() {
         while (gui.notice.firstChild) {
             notice.removeChild(notice.firstChild);
         }
+        gui.notice.style.visibility = 'hidden'
     }
     return {
         grids: grids,
@@ -322,7 +326,8 @@ function createGui() {
         container: container,
         slider: slider,
         resetContainer: resetContainer,
-        score: score
+        score: score,
+        body: body
     }
 }
 
