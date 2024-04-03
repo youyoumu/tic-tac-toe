@@ -239,7 +239,7 @@ function createGame(size, mark1, mark2) {
             }
         }
         if (gameLogic.scanDraw(gameBoard)) {
-            console.log('Draw!')
+            announceDraw()
             return
         }
 
@@ -255,6 +255,12 @@ function createGame(size, mark1, mark2) {
     function announceWinner(name) {
         console.log(`${name} wins!`)
         gui.notice.textContent = `${name} wins!`
+        removeEventListeners()
+    }
+
+    function announceDraw() {
+        console.log('Draw!')
+        gui.notice.textContent = 'Draw!'
         removeEventListeners()
     }
 
