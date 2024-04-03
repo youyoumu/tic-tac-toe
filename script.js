@@ -46,7 +46,8 @@ function createPlayer(mark) {
 
     return {
         draw: draw,
-        getInput: getInput
+        getInput: getInput,
+        mark: mark
     }
 }
 
@@ -265,10 +266,15 @@ function createGame(size, mark1, mark2) {
         removeEventListeners()
     }
 
+    function currentPlayerMark() {
+        return currentPlayer.mark
+    }
+
     return {
         start: start,
         guiStart: guiStart,
-        gameBoard: gameBoard
+        gameBoard: gameBoard,
+        currentPlayerMark: currentPlayerMark
     }
 }
 
@@ -298,6 +304,21 @@ function createGui() {
     const grids = document.querySelectorAll('.grid')
     grids.forEach((grid) => {
         grid.style.fontSize = `min(${40 / size}vw, ${40 / size}vh)`;
+        grid.addEventListener('mouseover', () => {
+            if (game.gameBoard.gameBoard[grid.dataset.coordinate[0]][grid.dataset.coordinate[1]] === null) {
+                grid.textContent = game.currentPlayerMark()
+                grid.style.color = 'rgba(0, 0, 0, 0.2)'
+            }
+        })
+        grid.addEventListener('mouseout', () => {
+            if (game.gameBoard.gameBoard[grid.dataset.coordinate[0]][grid.dataset.coordinate[1]] === null) {
+                grid.textContent = ''
+            }
+            grid.style.color = 'black'
+        })
+        grid.addEventListener('click', () => {
+            grid.style.color = 'black'
+        })
     })
 
     function render() {
