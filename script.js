@@ -268,6 +268,7 @@ function createGame(size, mark1, mark2) {
 function createGui() {
     const container = document.getElementById('container')
     const notice = document.querySelector('.notice')
+    const reset = document.getElementById('reset')
     container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
     container.style.gridTemplateRows = `repeat(${size}, 1fr)`
 
@@ -294,11 +295,28 @@ function createGui() {
     return {
         grids: grids,
         render: render,
-        notice: notice
+        notice: notice,
+        reset: reset,
+        container: container
     }
 }
 
-const size = Number(prompt("Enter board size"))
-const game = createGame(size, "X", "O")
-const gui = createGui()
+//const size = Number(prompt("Enter board size"))
+const size = 3
+let game = createGame(size, "X", "O")
+let gui = createGui()
 game.guiStart()
+
+gui.reset.addEventListener('click', () => {
+    while (gui.container.firstChild) {
+        gui.container.removeChild(gui.container.firstChild);
+    }
+    while (gui.notice.firstChild) {
+        gui.notice.removeChild(gui.notice.firstChild);
+    }
+
+    game = createGame(size, "X", "O")
+    gui = createGui()
+    game.guiStart()
+})
+
