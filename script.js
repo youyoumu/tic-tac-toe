@@ -287,6 +287,8 @@ function createGui() {
     const sliderLabel = document.getElementById('sliderLabel')
     const score = document.querySelector('.score')
     const body = document.querySelector('body')
+    const player1Input = document.getElementById('player1-input')
+    const player2Input = document.getElementById('player2-input')
 
     sliderLabel.textContent = `Size: ${slider.value}`
     container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
@@ -353,7 +355,9 @@ function createGui() {
         resetContainer: resetContainer,
         score: score,
         body: body,
-        previewMark: previewMark
+        previewMark: previewMark,
+        player1Input: player1Input,
+        player2Input: player2Input
     }
 }
 
@@ -376,6 +380,28 @@ gui.slider.addEventListener('input', () => {
     gui.resetContainer()
     size = Number(gui.slider.value)
     game = createGame(size, "X", "O")
+    gui = createGui()
+    game.guiStart()
+})
+
+gui.player1Input.addEventListener('input', () => {
+    gui.resetContainer()
+    player1Mark = gui.player1Input.value
+    player1Mark = (player1Mark === "") ? "X" : player1Mark
+    player2Mark = gui.player2Input.value
+    player2Mark = (player2Mark === "") ? "O" : player2Mark
+    game = createGame(size, player1Mark, player2Mark)
+    gui = createGui()
+    game.guiStart()
+})
+
+gui.player2Input.addEventListener('input', () => {
+    gui.resetContainer()
+    player1Mark = gui.player1Input.value
+    player1Mark = (player1Mark === "") ? "X" : player1Mark
+    player2Mark = gui.player2Input.value
+    player2Mark = (player2Mark === "") ? "O" : player2Mark
+    game = createGame(size, player1Mark, player2Mark)
     gui = createGui()
     game.guiStart()
 })
