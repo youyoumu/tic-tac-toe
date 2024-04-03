@@ -231,10 +231,12 @@ function createGame(size, mark1, mark2) {
             if (mark === mark1) {
                 player1Score++
                 console.log('Player 1 wins!')
+                removeEventListeners()
                 return
             } else {
                 player2Score++
                 console.log('Player 2 wins!')
+                removeEventListeners()
                 return
             }
         }
@@ -244,6 +246,12 @@ function createGame(size, mark1, mark2) {
         }
 
         currentPlayer = (currentPlayer === player1) ? player2 : player1
+    }
+
+    function removeEventListeners() {
+        gui.grids.forEach((grid) => {
+            grid.removeEventListener('click', handleClick);
+        });
     }
 
     return {
