@@ -249,6 +249,7 @@ function createGame(size, mark1, mark2) {
     function removeEventListeners() {
         gui.grids.forEach((grid) => {
             grid.removeEventListener('click', handleClick);
+            grid.removeEventListener('mouseover', gui.previewMark);
         });
     }
 
@@ -302,14 +303,16 @@ function createGui() {
     })
 
     const grids = document.querySelectorAll('.grid')
+    function previewMark(grid) {
+        grid = grid.target
+        if (game.gameBoard.gameBoard[grid.dataset.coordinate[0]][grid.dataset.coordinate[1]] === null) {
+            grid.textContent = game.currentPlayerMark()
+            grid.style.color = 'rgba(0, 0, 0, 0.2)'
+        }
+    }
     grids.forEach((grid) => {
         grid.style.fontSize = `min(${40 / size}vw, ${40 / size}vh)`;
-        grid.addEventListener('mouseover', () => {
-            if (game.gameBoard.gameBoard[grid.dataset.coordinate[0]][grid.dataset.coordinate[1]] === null) {
-                grid.textContent = game.currentPlayerMark()
-                grid.style.color = 'rgba(0, 0, 0, 0.2)'
-            }
-        })
+        grid.addEventListener('mouseover', previewMark)
         grid.addEventListener('mouseout', () => {
             if (game.gameBoard.gameBoard[grid.dataset.coordinate[0]][grid.dataset.coordinate[1]] === null) {
                 grid.textContent = ''
@@ -349,7 +352,8 @@ function createGui() {
         slider: slider,
         resetContainer: resetContainer,
         score: score,
-        body: body
+        body: body,
+        previewMark: previewMark
     }
 }
 
