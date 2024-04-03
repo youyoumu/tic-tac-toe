@@ -13,5 +13,4 @@ main {
     justify-content: center;
     align-items: center;
     border: 1px solid black;
-    font-size: min(10vh, 10vw);
 }

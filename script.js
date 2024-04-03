@@ -291,6 +291,9 @@ function createGui() {
     })
 
     const grids = document.querySelectorAll('.grid')
+    grids.forEach((grid) => {
+        grid.style.fontSize = `${grid.offsetWidth / 2}px`;
+    })
 
     function render() {
         game.gameBoard.gameBoard.forEach((row, rowIndex) => {
