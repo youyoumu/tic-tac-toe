@@ -226,6 +226,7 @@ function createGame(size, mark1, mark2) {
 
         currentPlayer.draw(gameBoard, coord)
         gameBoard.printBoard()
+        gui.render()
         if (mark = gameLogic.scanWinner(gameBoard)) {
             if (mark === mark1) {
                 player1Score++
@@ -267,8 +268,18 @@ function createGui() {
     })
 
     const grids = document.querySelectorAll('.grid')
+
+    function render() {
+        game.gameBoard.gameBoard.forEach((row, rowIndex) => {
+            row.forEach((mark, columnIndex) => {
+                const grid = document.querySelector(`[data-coordinate="${rowIndex}${columnIndex}"]`)
+                grid.textContent = mark
+            })
+        })
+    }
     return {
-        grids: grids
+        grids: grids,
+        render: render
     }
 }
 
