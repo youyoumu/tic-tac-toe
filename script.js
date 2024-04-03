@@ -300,13 +300,23 @@ function createGui() {
             })
         })
     }
+
+    function resetContainer() {
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+        while (gui.notice.firstChild) {
+            notice.removeChild(notice.firstChild);
+        }
+    }
     return {
         grids: grids,
         render: render,
         notice: notice,
         reset: reset,
         container: container,
-        slider: slider
+        slider: slider,
+        resetContainer: resetContainer
     }
 }
 
@@ -316,26 +326,14 @@ let gui = createGui()
 game.guiStart()
 
 gui.reset.addEventListener('click', () => {
-    while (gui.container.firstChild) {
-        gui.container.removeChild(gui.container.firstChild);
-    }
-    while (gui.notice.firstChild) {
-        gui.notice.removeChild(gui.notice.firstChild);
-    }
-
+    gui.resetContainer()
     game = createGame(size, "X", "O")
     gui = createGui()
     game.guiStart()
 })
 
 gui.slider.addEventListener('input', () => {
-    while (gui.container.firstChild) {
-        gui.container.removeChild(gui.container.firstChild);
-    }
-    while (gui.notice.firstChild) {
-        gui.notice.removeChild(gui.notice.firstChild);
-    }
-
+    gui.resetContainer()
     size = Number(gui.slider.value)
     game = createGame(size, "X", "O")
     gui = createGui()
