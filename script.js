@@ -372,7 +372,11 @@ game.guiStart()
 
 gui.reset.addEventListener('click', () => {
     gui.resetContainer()
-    game = createGame(size, "X", "O")
+    player1Mark = gui.player1Input.value
+    player1Mark = (player1Mark === "") ? "X" : player1Mark
+    player2Mark = gui.player2Input.value
+    player2Mark = (player2Mark === "") ? "O" : player2Mark
+    game = createGame(size, player1Mark, player2Mark)
     gui = createGui()
     game.guiStart()
 })
@@ -381,7 +385,11 @@ gui.slider.addEventListener('input', () => {
 
     gui.resetContainer()
     size = Number(gui.slider.value)
-    game = createGame(size, "X", "O")
+    player1Mark = gui.player1Input.value
+    player1Mark = (player1Mark === "") ? "X" : player1Mark
+    player2Mark = gui.player2Input.value
+    player2Mark = (player2Mark === "") ? "O" : player2Mark
+    game = createGame(size, player1Mark, player2Mark)
     gui = createGui()
     game.guiStart()
 })
