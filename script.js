@@ -338,6 +338,7 @@ function createGui() {
             notice.removeChild(notice.firstChild);
         }
         gui.notice.style.visibility = 'hidden'
+        body.style.backgroundColor = 'rgb(222, 240, 255)'
     }
     return {
         grids: grids,
