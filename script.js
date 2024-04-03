@@ -276,7 +276,9 @@ function createGui() {
     const notice = document.querySelector('.notice')
     const reset = document.getElementById('reset')
     const slider = document.getElementById('slider')
+    const sliderLabel = document.getElementById('sliderLabel')
 
+    sliderLabel.textContent = `Size: ${slider.value}`
     container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
     container.style.gridTemplateRows = `repeat(${size}, 1fr)`
 
@@ -336,6 +338,7 @@ gui.reset.addEventListener('click', () => {
 })
 
 gui.slider.addEventListener('input', () => {
+
     gui.resetContainer()
     size = Number(gui.slider.value)
     game = createGame(size, "X", "O")
