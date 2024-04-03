@@ -148,9 +148,17 @@ const gameLogic = (function () {
         return false
     }
 
+    const coordIsValid = (gameBoard, coord) => {
+        if (gameBoard.gameBoard[coord[0]][coord[1]] === null) {
+            return coord
+        }
+        return false
+    }
+
     return {
         scanWinner: scanWinner,
-        scanDraw: scanDraw
+        scanDraw: scanDraw,
+        coordIsValid: coordIsValid
     }
 })()
 
@@ -160,6 +168,7 @@ function createGame(size, mark1, mark2) {
     const player2 = createPlayer(mark2)
     let player1Score = 0
     let player2Score = 0
+    let currentPlayer = player1
 
     function start() {
         gameBoard.printBoard()
@@ -199,8 +208,46 @@ function createGame(size, mark1, mark2) {
         console.log(`Score: ${player1Score} - ${player2Score}`)
     }
 
+    function guiStart() {
+        gameBoard.printBoard()
+        console.log('Player 1 goes first')
+
+        gui.grids.forEach((grid) => {
+            grid.addEventListener('click', handleClick);
+        });
+    }
+
+    function handleClick(e) {
+        const coord = e.target.dataset.coordinate.split('').map(Number)
+
+        if (!gameLogic.coordIsValid(gameBoard, coord)) {
+            return
+        }
+
+        currentPlayer.draw(gameBoard, coord)
+        gameBoard.printBoard()
+        if (mark = gameLogic.scanWinner(gameBoard)) {
+            if (mark === mark1) {
+                player1Score++
+                console.log('Player 1 wins!')
+                return
+            } else {
+                player2Score++
+                console.log('Player 2 wins!')
+                return
+            }
+        }
+        if (gameLogic.scanDraw(gameBoard)) {
+            console.log('Draw!')
+            return
+        }
+
+        currentPlayer = (currentPlayer === player1) ? player2 : player1
+    }
+
     return {
         start: start,
+        guiStart: guiStart,
         gameBoard: gameBoard
     }
 }
@@ -208,7 +255,6 @@ function createGame(size, mark1, mark2) {
 function createGui() {
     const container = document.getElementById('container')
     container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
-
 
     game.gameBoard.gameBoard.forEach((row, rowIndex) => {
         row.forEach((mark, columnIndex) => {
@@ -220,12 +266,13 @@ function createGui() {
         })
     })
 
+    const grids = document.querySelectorAll('.grid')
     return {
-
+        grids: grids
     }
 }
 
 const size = Number(prompt("Enter board size"))
 const game = createGame(size, "X", "O")
 const gui = createGui()
-game.start()
+game.guiStart()
