@@ -297,7 +297,7 @@ function createGui() {
 
     const grids = document.querySelectorAll('.grid')
     grids.forEach((grid) => {
-        grid.style.fontSize = `${grid.offsetWidth / 2}px`;
+        grid.style.fontSize = `min(${40 / size}vw, ${40 / size}vh)`;
     })
 
     function render() {
