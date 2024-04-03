@@ -166,8 +166,6 @@ function createGame(size, mark1, mark2) {
     const gameBoard = createGameBoard(size, mark1, mark2)
     const player1 = createPlayer(mark1)
     const player2 = createPlayer(mark2)
-    let player1Score = 0
-    let player2Score = 0
     let currentPlayer = player1
 
     function start() {
@@ -255,6 +253,7 @@ function createGame(size, mark1, mark2) {
     function announceWinner(name) {
         console.log(`${name} wins!`)
         gui.notice.textContent = `${name} wins!`
+        gui.score.textContent = `Score: ${player1Score} - ${player2Score}`
         removeEventListeners()
     }
 
@@ -277,6 +276,7 @@ function createGui() {
     const reset = document.getElementById('reset')
     const slider = document.getElementById('slider')
     const sliderLabel = document.getElementById('sliderLabel')
+    const score = document.querySelector('.score')
 
     sliderLabel.textContent = `Size: ${slider.value}`
     container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
@@ -321,11 +321,14 @@ function createGui() {
         reset: reset,
         container: container,
         slider: slider,
-        resetContainer: resetContainer
+        resetContainer: resetContainer,
+        score: score
     }
 }
 
 let size = Number(document.getElementById('slider').value)
+let player1Score = 0
+let player2Score = 0
 let game = createGame(size, "X", "O")
 let gui = createGui()
 game.guiStart()
