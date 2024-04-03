@@ -275,6 +275,8 @@ function createGui() {
     const container = document.getElementById('container')
     const notice = document.querySelector('.notice')
     const reset = document.getElementById('reset')
+    const slider = document.getElementById('slider')
+
     container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
     container.style.gridTemplateRows = `repeat(${size}, 1fr)`
 
@@ -303,12 +305,12 @@ function createGui() {
         render: render,
         notice: notice,
         reset: reset,
-        container: container
+        container: container,
+        slider: slider
     }
 }
 
-//const size = Number(prompt("Enter board size"))
-const size = 3
+let size = Number(document.getElementById('slider').value)
 let game = createGame(size, "X", "O")
 let gui = createGui()
 game.guiStart()
@@ -321,6 +323,20 @@ gui.reset.addEventListener('click', () => {
         gui.notice.removeChild(gui.notice.firstChild);
     }
 
+    game = createGame(size, "X", "O")
+    gui = createGui()
+    game.guiStart()
+})
+
+gui.slider.addEventListener('input', () => {
+    while (gui.container.firstChild) {
+        gui.container.removeChild(gui.container.firstChild);
+    }
+    while (gui.notice.firstChild) {
+        gui.notice.removeChild(gui.notice.firstChild);
+    }
+
+    size = Number(gui.slider.value)
     game = createGame(size, "X", "O")
     gui = createGui()
     game.guiStart()
