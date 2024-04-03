@@ -205,21 +205,27 @@ function createGame(size, mark1, mark2) {
     }
 }
 
+function createGui() {
+    const container = document.getElementById('container')
+    container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
+
+
+    game.gameBoard.gameBoard.forEach((row, rowIndex) => {
+        row.forEach((mark, columnIndex) => {
+            const grid = document.createElement('div')
+            grid.classList.add('grid')
+            grid.textContent = mark
+            grid.dataset.coordinate = `${rowIndex}${columnIndex}`
+            container.appendChild(grid)
+        })
+    })
+
+    return {
+
+    }
+}
+
 const size = Number(prompt("Enter board size"))
 const game = createGame(size, "X", "O")
-
-const container = document.getElementById('container')
-container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
-
-console.log(game.gameBoard.gameBoard)
-game.gameBoard.gameBoard.forEach(row => {
-    row.forEach((mark) => {
-        const grid = document.createElement('div')
-        grid.classList.add('grid')
-        grid.textContent = mark
-        container.appendChild(grid)
-    })
-})
-
-
+const gui = createGui()
 game.start()
