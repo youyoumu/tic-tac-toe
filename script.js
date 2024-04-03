@@ -264,6 +264,7 @@ function createGame(size, mark1, mark2) {
     function announceDraw() {
         console.log('Draw!')
         gui.notice.textContent = 'Draw!'
+        gui.notice.style.visibility = 'visible'
         removeEventListeners()
     }
 
