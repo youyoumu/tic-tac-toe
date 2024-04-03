@@ -317,9 +317,11 @@ function createGui() {
         grid.addEventListener('mouseover', previewMark)
         grid.addEventListener('mouseout', () => {
             if (game.gameBoard.gameBoard[grid.dataset.coordinate[0]][grid.dataset.coordinate[1]] === null) {
-                grid.textContent = ''
+                grid.style.color = 'rgba(0, 0, 0, 0)'
             }
-            grid.style.color = 'black'
+            else {
+                grid.style.color = 'black'
+            }
         })
         grid.addEventListener('click', () => {
             grid.style.color = 'black'
