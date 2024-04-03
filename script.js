@@ -368,51 +368,36 @@ let player1Score = 0
 let player2Score = 0
 let game = createGame(size, "X", "O")
 let gui = createGui()
+function restart() {
+    player1Mark = gui.player1Input.value
+    player1Mark = (player1Mark === "") ? "X" : player1Mark
+    player2Mark = gui.player2Input.value
+    player2Mark = (player2Mark === "") ? "O" : player2Mark
+    game = createGame(size, player1Mark, player2Mark)
+    gui = createGui()
+    game.guiStart()
+}
+
 game.guiStart()
 
 gui.reset.addEventListener('click', () => {
     gui.resetContainer()
-    player1Mark = gui.player1Input.value
-    player1Mark = (player1Mark === "") ? "X" : player1Mark
-    player2Mark = gui.player2Input.value
-    player2Mark = (player2Mark === "") ? "O" : player2Mark
-    game = createGame(size, player1Mark, player2Mark)
-    gui = createGui()
-    game.guiStart()
+    restart()
 })
 
 gui.slider.addEventListener('input', () => {
-
     gui.resetContainer()
     size = Number(gui.slider.value)
-    player1Mark = gui.player1Input.value
-    player1Mark = (player1Mark === "") ? "X" : player1Mark
-    player2Mark = gui.player2Input.value
-    player2Mark = (player2Mark === "") ? "O" : player2Mark
-    game = createGame(size, player1Mark, player2Mark)
-    gui = createGui()
-    game.guiStart()
+    restart()
 })
 
 gui.player1Input.addEventListener('input', () => {
     gui.resetContainer()
-    player1Mark = gui.player1Input.value
-    player1Mark = (player1Mark === "") ? "X" : player1Mark
-    player2Mark = gui.player2Input.value
-    player2Mark = (player2Mark === "") ? "O" : player2Mark
-    game = createGame(size, player1Mark, player2Mark)
-    gui = createGui()
-    game.guiStart()
+    restart()
 })
 
 gui.player2Input.addEventListener('input', () => {
     gui.resetContainer()
-    player1Mark = gui.player1Input.value
-    player1Mark = (player1Mark === "") ? "X" : player1Mark
-    player2Mark = gui.player2Input.value
-    player2Mark = (player2Mark === "") ? "O" : player2Mark
-    game = createGame(size, player1Mark, player2Mark)
-    gui = createGui()
-    game.guiStart()
+    restart()
 })
 
