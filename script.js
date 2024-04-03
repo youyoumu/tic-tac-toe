@@ -230,13 +230,11 @@ function createGame(size, mark1, mark2) {
         if (mark = gameLogic.scanWinner(gameBoard)) {
             if (mark === mark1) {
                 player1Score++
-                console.log('Player 1 wins!')
-                removeEventListeners()
+                announceWinner("Player 1")
                 return
             } else {
                 player2Score++
-                console.log('Player 2 wins!')
-                removeEventListeners()
+                announceWinner("Player 2")
                 return
             }
         }
@@ -254,6 +252,12 @@ function createGame(size, mark1, mark2) {
         });
     }
 
+    function announceWinner(name) {
+        console.log(`${name} wins!`)
+        gui.notice.textContent = `${name} wins!`
+        removeEventListeners()
+    }
+
     return {
         start: start,
         guiStart: guiStart,
@@ -263,6 +267,7 @@ function createGame(size, mark1, mark2) {
 
 function createGui() {
     const container = document.getElementById('container')
+    const notice = document.querySelector('.notice')
     container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
     container.style.gridTemplateRows = `repeat(${size}, 1fr)`
 
@@ -288,7 +293,8 @@ function createGui() {
     }
     return {
         grids: grids,
-        render: render
+        render: render,
+        notice: notice
     }
 }
 
