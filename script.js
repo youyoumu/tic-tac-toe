@@ -264,6 +264,7 @@ function createGame(size, mark1, mark2) {
 function createGui() {
     const container = document.getElementById('container')
     container.style.gridTemplateColumns = `repeat(${size}, 1fr)`
+    container.style.gridTemplateRows = `repeat(${size}, 1fr)`
 
     game.gameBoard.gameBoard.forEach((row, rowIndex) => {
         row.forEach((mark, columnIndex) => {

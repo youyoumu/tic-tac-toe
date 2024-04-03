@@ -1,14 +1,17 @@
-body {
-    height: 80vh;
+main {
+    height: min(60vh, 60vw);
+    width: min(60vh, 60vw);
 }
 
 #container {
-    background-color: bisque;
     display: grid;
     height: 100%;
 }
 
 .grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 1px solid black;
-    height: auto
+    font-size: min(10vh, 10vw);
 }
